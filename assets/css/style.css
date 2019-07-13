@@ -1,0 +1,38 @@
+/* Logo */
+.logo-header .logo {
+    min-width: 175px;
+}
+
+/* Pemesanan */
+.card-select-product .card-body:last-child {
+    max-height: 307px;
+    overflow-y: scroll;
+}
+
+.table.table-borderless td, .table.table-borderless th {
+    border: none;
+}
+
+.table.table-list-pesanan td {
+    padding: 8px !important;
+}
+
+.btn.btn-success.shadow {
+    box-shadow: 0 .5rem 1rem rgba(49, 206, 54, .3)!important;
+}
+
+.btn.btn-primary.shadow {
+    box-shadow: 0 .5rem 1rem rgba(0, 123, 255, .3)!important;
+}
+
+.btn.btn-warning.shadow {
+    box-shadow: 0 .5rem 1rem rgba(255, 193, 7, .3)!important;
+}
+
+.btn.btn-info.shadow {
+    box-shadow: 0 .5rem 1rem rgba(23, 162, 184, .3)!important;
+}
+
+.btn.btn-danger.shadow {
+    box-shadow: 0 .5rem 1rem rgba(220, 53, 69, 0.3)!important;
+}
