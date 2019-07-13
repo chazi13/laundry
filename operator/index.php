@@ -67,7 +67,7 @@
 				<div class="sidebar-content">
 					<div class="user">
 						<div class="avatar-sm float-left mr-2">
-							<img src="../assets/img/<?= $_SESSION['jenis_kelamin'] ?>.jpg" alt="<?= $_SESSION['jenis_kelamin'] ?>" class="avatar-img rounded-circle">
+							<img src="../assets/img/<?= $_SESSION['jenis_kelamin'] ?>.png" alt="<?= $_SESSION['jenis_kelamin'] ?>" class="avatar-img rounded-circle">
 						</div>
 						<div class="info">
 							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
