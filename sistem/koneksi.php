@@ -1,6 +1,6 @@
 <?php
 
-$koneksi = mysqli_connect('localhost', 'root', 'mysql', 'laundry');
+$koneksi = mysqli_connect('localhost', 'operator1', 'operator1', 'laundry');
 session_start();
 
 if (!$koneksi) {
