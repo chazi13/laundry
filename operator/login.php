@@ -32,7 +32,7 @@
                         <form action="sistem/act_login.php" method="post">
                             <div class="form-group">
                                 <label for="id">User ID :</label>
-                                <input type="text" name="id" id="id" class="form-control" placeholder="Ex: OP100" autofocus="" autocomplete="username" required>
+                                <input type="text" name="id" id="id" class="form-control text-uppercase" placeholder="Ex: OP100" autofocus="" autocomplete="username" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password :</label>

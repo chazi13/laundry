@@ -1,6 +1,6 @@
 <?php
 include_once '../sistem/koneksi.php';
-check_login();
+check_login(['Admin', 'Pegawai']);
 
 $get_page = $_GET['page'];
 switch ($get_page) {

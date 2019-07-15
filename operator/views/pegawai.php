@@ -31,6 +31,7 @@ $no = 1;
                     <table class="table table-bordered table-striped datatable">
                         <thead class="border-top">
                             <th>No</th>
+                            <th>ID</th>
                             <th>Nama</th>
                             <th>Telp</th>
                             <th>Email</th>
@@ -40,6 +41,7 @@ $no = 1;
                             <?php while ($row = mysqli_fetch_assoc($query)): ?>
                                 <tr>
                                     <td><?= $no++ ?></td>
+                                    <td><?= $row['id_admin'] ?></td>
                                     <td><?= $row['nama'] ?></td>
                                     <td><?= $row['telp'] ?></td>
                                     <td><?= $row['email'] ?></td>
