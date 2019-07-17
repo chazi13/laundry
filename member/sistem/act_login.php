@@ -1,5 +1,5 @@
 <?php
-include_once 'koneksi.php';
+include_once '../../sistem/koneksi.php';
 
 $id = $_POST['id'];
 $password = md5($_POST['password']);
@@ -16,7 +16,7 @@ if (mysqli_num_rows($check) == 1) {
         'status' => 'success',
         'msg' => 'Selamat Datang ' . $data['nama']
     ];
-    header('location: ../index.php?page=profil');
+    header('location: ../index.php');
 } else {
     $_SESSION['pesan'] = [
         'status' => 'error',
