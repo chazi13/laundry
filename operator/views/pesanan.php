@@ -1,5 +1,5 @@
 <?php
-$query = mysqli_query($koneksi, "SELECT * FROM transaksi ORDER BY status ASC, tgl_transaksi ASC");
+$query = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE status < '4' ORDER BY status ASC, tgl_transaksi ASC");
 ?>
 
 <div class="page-inner">

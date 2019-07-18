@@ -151,6 +151,12 @@
 								<p>Pesanan</p>
 							</a>
 						</li>
+						<li class="nav-item <?= @$l_active ?>">
+							<a href="index.php?page=laporan">
+								<i class="fas fa-table"></i>
+								<p>Laporan</p>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -187,11 +193,51 @@
 	<!-- Datatables -->
 	<script src="../assets/js/plugin/datatables/datatables.min.js"></script>
 
+	<!-- Chart Js -->
+	<script src="../assets/js/plugin/chart.js/chart.min.js"></script>
+
 	<!-- Atlantis JS -->
 	<script src="../assets/js/atlantis.min.js"></script>
 
+	<!-- TinyMCE -->
+    <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
+
 	<!-- Custom JS -->
 	<script src="../assets/js/main.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			var BASE_URL = '<?= 'http://' . $_SERVER['HTTP_HOST'] . str_replace('operator/' . basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']) ?>'; // use your own base url
+            tinymce.init({
+                selector: ".texteditor",
+                theme: "modern",
+                // width: 680,
+                height: 500,
+                relative_urls: false,
+                remove_script_host: false,
+                // document_base_url: BASE_URL,
+                plugins: [
+                    "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+                    "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+                    "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+                ],
+                toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+                toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+                image_advtab: true,
+                external_filemanager_path: BASE_URL + "assets/vendor/filemanager/",
+                filemanager_title: "Media Gallery",
+                external_plugins: { "filemanager": BASE_URL + "assets/vendor/filemanager/plugin.min.js" }
+            });
+		});
+
+		if (data) {
+			let ctx = document.getElementById('chart').getContext('2d');
+			let myLineChart = new Chart(ctx, {
+				type: 'line',
+				data: data
+			});
+		}
+	</script>
 </body>
 </html>
 <?php unset($_SESSION['pesan']) ?>

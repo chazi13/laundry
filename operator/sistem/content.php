@@ -64,6 +64,12 @@ switch ($get_page) {
         $ps_active = 'active';
         break;
 
+    case 'laporan':
+        $title = 'Laporan';
+        $page = 'laporan.php';
+        $l_active = 'active';
+        break;
+
     case 'add_pesanan':
         $title = 'Tambah Pesanan';
         $page = 'add_pesanan.php';

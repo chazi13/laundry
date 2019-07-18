@@ -86,5 +86,23 @@ $info_toko = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM info_toko"
                 </div>
             </form>
         </div>
+        <div class="col-sm-12">
+            <form action="sistem/info_tentang.php" method="post">
+                <div class="card">
+                    <div class="card-header with-border">
+                        <h4 class="card-title">Tentang Toko</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="tentang">Tentang</label>
+                            <textarea name="tentang" id="tentang" rows="3" class="form-control texteditor"><?= @$info_toko['tentang'] ?></textarea>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" name="simpan" value="simpan" class="btn btn-primary">Simpan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
