@@ -39,7 +39,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM produk");
                                 </div>
                                 <div class="col-3 text-right">
                                     <a href="javascript:void(0)" class="btn btn-primary btn-xs mb-1 btn-edit-product" data-toggle="modal" data-target="#edit_product" data-product="<?= base64_encode(json_encode($row)) ?>"><i class="fa fa-pen"></i></a>
-                                    <a href="javascript:void(0)" class="btn btn-danger btn-xs mb-1"><i class="fa fa-trash"></i></a>
+                                    <a href="sistem/hapus_produk.php?id_produk=<?= $row['id_produk'] ?>" class="btn btn-danger btn-delete btn-xs mb-1"><i class="fa fa-trash"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM produk");
         <div class="modal-content">
             <form action="sistem/add_produk.php" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="add_product_label">Tambah Katalog Produk</h5>
+                    <h3 class="modal-title" id="add_product_label">Tambah Katalog Produk</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -106,7 +106,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM produk");
         <div class="modal-content">
             <form action="sistem/update_produk.php" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="edit_product_label">Edit Produk</h5>
+                    <h3 class="modal-title" id="edit_product_label">Edit Produk</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

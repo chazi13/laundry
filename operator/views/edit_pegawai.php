@@ -41,7 +41,7 @@ $data_pegawai = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM admin W
                 </div>
                 <div class="form-group">
                     <label for="telp">Telp :</label>
-                    <input type="text" name="telp" id="telp" class="form-control" value="<?= $data_pegawai['telp'] ?>" autocomplete="tel" pattern="^[08][0-9]{11,15}" title="Masukan Nomor Telpon yang valid, seperti 085774237xxx. Telp hanya bisa berisi angka" placeholder="Masukan Telp Pegawai" required>
+                    <input type="number" name="telp" id="telp" class="form-control" value="<?= $data_pegawai['telp'] ?>" autocomplete="tel" pattern="^[08][0-9]{10,15}" title="Masukan Nomor Telpon yang valid, seperti 085774237xxx. Telp hanya bisa berisi angka" placeholder="Masukan Telp Pegawai" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password :</label>

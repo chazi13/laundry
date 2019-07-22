@@ -25,12 +25,12 @@ $query = mysqli_query($koneksi, "INSERT INTO produk (nama, icon, harga) VALUES (
 if ($query) {
     $_SESSION['pesan'] = [
         'status' => 'success',
-        'msg' => 'Produk berhasil ditambahkan!'
+        'msg' => 'Katalog Produk berhasil ditambahkan!'
     ];
 } else {
     $_SESSION['pesan'] = [
         'status' => 'error',
-        'msg' => 'Produk gagal ditambahkan!'
+        'msg' => 'Katalog Produk gagal ditambahkan!'
     ];
 }
 

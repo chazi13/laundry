@@ -34,7 +34,7 @@
 			<div class="logo-header" data-background-color="blue">
 				
 				<a href="index.html" class="logo text-white text-uppercase">
-					MUKHLIDA LAUNDRY
+					<img src="../assets/img/mukhlida-laundry.png" alt="Logo Image" style="width: 90%">
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">
@@ -153,8 +153,24 @@
 	<!-- Atlantis JS -->
 	<script src="../assets/js/atlantis.min.js"></script>
 
-	<!-- Custom JS -->
-	<script src="../assets/js/main.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('.btn-detail-transaksi').click(function() {
+				let kdt = $(this).attr('data-kt');
+				console.log(kdt);
+				$.ajax({
+					url: 'detail_transaksi.php?k=' + kdt,
+					method: 'GET',
+					error: function(err) {
+						console.log(err)
+					},
+					success: function(res) {
+						$('.detail-content').html(res);
+					}
+				})
+			});
+		})
+	</script>
 </body>
 </html>
 <?php unset($_SESSION['pesan']) ?>

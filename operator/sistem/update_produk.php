@@ -29,12 +29,12 @@ $query = mysqli_query($koneksi, "UPDATE produk SET nama = '$nama_produk', harga 
 if ($query) {
     $_SESSION['pesan'] = [
         'status' => 'success',
-        'msg' => 'Produk berhasil ditambahkan!'
+        'msg' => 'Katalog Produk berhasil diupdate!'
     ];
 } else {
     $_SESSION['pesan'] = [
         'status' => 'error',
-        'msg' => 'Produk gagal ditambahkan!'
+        'msg' => 'Katalog Produk gagal diupdate!'
     ];
 }
 

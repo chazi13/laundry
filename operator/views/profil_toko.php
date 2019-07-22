@@ -7,13 +7,6 @@ $info_toko = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM info_toko"
         <div class="col-8">
             <h2 class="pb-2 fw-bold"><?= $title ?></h2>
         </div>
-        <div class="col-4 text-right ml-auto">
-            <a href="javascript:void(0)" data-toggle="modal" data-target="#add_product">
-                <button class="btn btn-primary btn-round btn-sm">
-                    <i class="fa fa-plus"></i> Tambah
-                </button>
-            </a>
-        </div>
     </div>
 
     <?php if (@$_SESSION['pesan']): ?>

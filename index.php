@@ -22,15 +22,30 @@ $info_toko = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM info_toko"
 
   <!-- Custom styles for this template -->
   <link href="assets/css/agency.min.css" rel="stylesheet">
-
 </head>
+
+<style>
+  @media (max-width: 576px) {
+    #nav-logo {
+      float: left;
+      width: 50%;
+    }
+
+    #nav-logo img {
+      width: 100%!important;
+    }
+  }
+</style>
 
 <body id="page-top">
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top"><?= $info_toko['nama_toko'] ?></a>
+      <a id="nav-logo" class="navbar-brand js-scroll-trigger float-left" href="#page-top">
+        <!-- <?= $info_toko['nama_toko'] ?> -->
+        <img src="assets/img/mukhlida-laundry.png" alt="<?= $info_toko['nama_toko'] ?>" class="w-50">
+      </a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -77,71 +92,6 @@ $info_toko = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM info_toko"
       <div class="row">
         <div class="col-lg-12">
           <?= $info_toko['tentang'] ?>
-          <!-- <ul class="timeline">
-            <li>
-              <div class="timeline-image">
-                <img class="rounded-circle img-fluid" src="img/about/1.jpg" alt="">
-              </div>
-              <div class="timeline-panel">
-                <div class="timeline-heading">
-                  <h4>2009-2011</h4>
-                  <h4 class="subheading">Our Humble Beginnings</h4>
-                </div>
-                <div class="timeline-body">
-                  <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                </div>
-              </div>
-            </li>
-            <li class="timeline-inverted">
-              <div class="timeline-image">
-                <img class="rounded-circle img-fluid" src="img/about/2.jpg" alt="">
-              </div>
-              <div class="timeline-panel">
-                <div class="timeline-heading">
-                  <h4>March 2011</h4>
-                  <h4 class="subheading">An Agency is Born</h4>
-                </div>
-                <div class="timeline-body">
-                  <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="timeline-image">
-                <img class="rounded-circle img-fluid" src="img/about/3.jpg" alt="">
-              </div>
-              <div class="timeline-panel">
-                <div class="timeline-heading">
-                  <h4>December 2012</h4>
-                  <h4 class="subheading">Transition to Full Service</h4>
-                </div>
-                <div class="timeline-body">
-                  <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                </div>
-              </div>
-            </li>
-            <li class="timeline-inverted">
-              <div class="timeline-image">
-                <img class="rounded-circle img-fluid" src="img/about/4.jpg" alt="">
-              </div>
-              <div class="timeline-panel">
-                <div class="timeline-heading">
-                  <h4>July 2014</h4>
-                  <h4 class="subheading">Phase Two Expansion</h4>
-                </div>
-                <div class="timeline-body">
-                  <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                </div>
-              </div>
-            </li>
-            <li class="timeline-inverted">
-              <div class="timeline-image">
-                <h4>Be Part
-                  <br>Of Our
-                  <br>Story!</h4>
-              </div>
-            </li>
-          </ul> -->
         </div>
       </div>
     </div>
@@ -276,7 +226,25 @@ $info_toko = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM info_toko"
 
   <!-- Custom scripts for this template -->
   <script src="assets/js/agency.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      let navLogo = $('#nav-logo img');
+      if ($('#mainNav').hasClass('navbar-shrink')) {
+        navLogo.attr('src', 'assets/img/mukhlida-laundry-black.png');
+      } else {
+        navLogo.attr('src', 'assets/img/mukhlida-laundry.png');
+      }
 
+      $(window).scroll(function() {
+        let navLogo = $('#nav-logo img');
+        if ($('#mainNav').hasClass('navbar-shrink')) {
+          navLogo.attr('src', 'assets/img/mukhlida-laundry-login.png');
+        } else {
+          navLogo.attr('src', 'assets/img/mukhlida-laundry.png');
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

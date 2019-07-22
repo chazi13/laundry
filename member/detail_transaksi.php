@@ -1,75 +1,102 @@
 <?php
 include_once '../sistem/koneksi.php';
 $kode_transaksi = base64_decode($_GET['k']);
-$transaksi = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM transaksi WHERE kode_transaksi = '$kode_transaksi'"));
-$query_detail = mysqli_query($koneksi, "SELECT * FROM detail_transaksi WHERE kode_transaksi = '$kode_transaksi'");
+$log_transaksi = mysqli_query($koneksi, "SELECT * FROM log_transaksi WHERE kode_transaksi = '$kode_transaksi'");
+$log = [];
+while ($row = mysqli_fetch_assoc($log_transaksi)) {
+    $log[] = $row;
+}
+
+$route = [];
+if (mysqli_num_rows($log_transaksi) > 4) {
+    $route = [
+        [
+            'kategori' => 'Diterima',
+            'icon' => 'flaticon-inbox',
+            'color' => 'secondary'
+        ],
+        [
+            'kategori' => 'Pengerjaan',
+            'icon' => 'flaticon-chain',
+            'color' => 'primary'
+        ],
+        [
+            'kategori' => 'Pengiriman',
+            'icon' => 'flaticon-truck',
+            'color' => 'warning'
+        ],
+        [
+            'kategori' => 'Selesai',
+            'icon' => 'flaticon-check',
+            'color' => 'success'
+        ],
+    ];
+} else {
+    $route = [
+        [
+            'kategori' => 'Diterima',
+            'icon' => 'flaticon-inbox',
+            'color' => 'secondary'
+        ],
+        [
+            'kategori' => 'Pengerjaan',
+            'icon' => 'flaticon-chain',
+            'color' => 'primary'
+        ],
+        [
+            'kategori' => 'Selesai',
+            'icon' => 'flaticon-check',
+            'color' => 'success'
+        ],
+    ];
+}
 ?>
 
-<div class="struk-detail">
-    <table class="table table-borderless">
-        <tr>
-            <td>No. Transaksi</td>
-            <td>:</td>
-            <td id="kode-transaksi"><?= $kode_transaksi ?></td>
-        </tr>
-        <tr>
-            <td>Pemesan</td>
-            <td>:</td>
-            <td><?= $transaksi['pemesan'] ?></td>
-        </tr>
-        <tr>
-            <td>Tanggal</td>
-            <td>:</td>
-            <td><?= date('d/M/Y H:i:s') ?></td>
-        </tr>
-    </table>
-    <table class="table">
-        <thead class="bg-grey2">
-            <th>Produk</th>
-            <th class="text-right">Jumlah</th>
-        </thead>
-        <tbody>
-            <?php $totalsub = 0; while ($rdt = mysqli_fetch_assoc($query_detail)): $subtotal = $rdt['harga'] * $rdt['qty']; $totalsub += $subtotal;  ?>
-                <tr>
-                    <td>
-                        <h6 class="mb-0"><?= $rdt['nama_produk'] ?></h6>
-                        <small><?= $rdt['qty'] . ' &times; Rp. ' . number_format($rdt['harga'], 0, ',', '.') ?></small>
-                    </td>
-                    <td class="text-right">
-                        <h6 class="font-weight-bold">Rp. <?= number_format($subtotal, 0, ',', '.') ?></h6>
-                    </td>
-                </tr>
-            <?php endwhile; ?>
-        </tbody>
-    </table>
-    <hr>
-    <table class="table table-borderless">
-        <tr>
-            <td class="p-0 text-uppercase">Subtotal</td>
-            <td class="p-0 text-right font-weight-bold">Rp. <?= number_format($totalsub, 0, ',', '.') ?></td>
-        </tr>
-        <tr>
-            <td class="p-0 text-uppercase">Diskon</td>
-            <td class="p-0 text-right"><?= ($transaksi['diskon'] > 0) ? $transaksi['diskon'] . '%' : 0 ?></td>
-        </tr>
-        <tr>
-            <td class="p-0 text-uppercase">Pengiriman</td>
-            <td class="p-0 text-right"><?= ($transaksi['logistik'] == 'Diantar') ? 'Rp. 9.000' : 0 ?></td>
-        </tr>
-    </table>
-    <hr>
-    <table class="table table-borderless">
-        <tr>
-            <td class="p-0 text-uppercase">Total</td>
-            <td class="p-0 text-right font-weight-bold">Rp. <?= number_format($transaksi['total'], 0, ',', '.') ?></td>
-        </tr>
-        <tr>
-            <td class="p-0 text-uppercase">Tunai</td>
-            <td class="p-0 text-right">Rp. <?= number_format($transaksi['tunai'], 0, ',', '.') ?></td>
-        </tr>
-        <tr>
-            <td class="p-0 text-uppercase">Kembali</td>
-            <td class="p-0 text-right">Rp. <?= $kembali = $transaksi['tunai'] - $transaksi['total']; number_format($kembali, 0, ',', '.') ?></td>
-        </tr>
-    </table>
-</div>
+<ul class="timeline">
+    <?php for ($i=0; $i < count($route); $i++): ?>
+        <li class="timeline-inverted">
+            <div class="timeline-badge <?= $route[$i]['color'] ?>">
+                <i class="<?= $route[$i]['icon'] ?>"></i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timline-heading">
+                    <h4 class="timline-title text-uppercase font-weight-bold border-bottom mt--2"><?= $route[$i]['kategori'] ?></h4>
+                </div>
+                <div class="timline-body">
+                    <?php for ($l=0; $l < count($log); $l++): ?>
+                        <!-- <?= var_dump($log[$l]) ?> -->
+                        <?php if ($route[$i]['kategori'] == 'Diterima' && $log[$l]['status'] == '0'): ?>
+                            <dl>
+                                <dt><span class="d-block text-muted"><?= date('d-M-Y H:i:s', strtotime($log[$l]['timestamp'])) ?></span></dt>
+                                <dd>Diterima oleh <span class="text-uppercase"><?= $log[$i]['pegawai'] ?></span></dd>
+                            </dl>
+                        
+                        <?php elseif ($route[$i]['kategori'] == 'Pengerjaan' && ($log[$l]['status'] == '1' || $log[$l]['status'] == '2')): ?>
+                            <dl>
+                                <dt><span class="d-block text-muted"><?= date('d-M-Y H:i:s', strtotime($log[$l]['timestamp'])) ?></span></dt>
+                                <?php if ($log[$l]['status'] == '1'): ?>
+                                    <dd>Laundry dikerjakan oleh <span class="text-uppercase"><?= $log[$i]['pegawai'] ?></span></dd>
+                                <?php elseif ($log[$l]['status'] == '2'): ?>
+                                    <dd>Laundry telah selesai dikerjakan oleh <span class="text-uppercase"><?= $log[$i]['pegawai'] ?></span></dd>
+                                <?php endif; ?>
+                            </dl>
+                        
+                        <?php elseif ($route[$i]['kategori'] == 'Dikirim' && $log[$l]['status'] == '3'): ?>
+                            <dl>
+                                <dt><span class="d-block text-muted"><?= date('d-M-Y H:i:s', strtotime($log[$l]['timestamp'])) ?></span></dt>
+                                <dd>Laundry sedang dikirim oleh <span class="text-uppercase"><?= $log[$i]['pegawai'] ?></span></dd>
+                            </dl>
+                        
+                        <?php elseif ($route[$i]['kategori'] == 'Selesai' && $log[$l]['status'] == '4'): ?>
+                            <dl>
+                                <dt><span class="d-block text-muted"><?= date('d-M-Y H:i:s', strtotime($log[$l]['timestamp'])) ?></span></dt>
+                                <dd>Laundry dinyatakan selesai oleh <span class="text-uppercase"><?= $log[$i]['pegawai'] ?></span></dd>
+                            </dl>
+
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                </div>
+            </div>
+        </li>
+    <?php endfor; ?>
+</ul>

@@ -52,10 +52,10 @@ $query_member = mysqli_query($koneksi, "SELECT id_member, nama, telp, alamat  FR
                                     </div>
                                     <div class="col-10">
                                         <input type="text" name="input_nama_pemesan" id="nama-pemesan" class="form-control" placeholder="Nama Pemesan" required>
-                                        <select name="nama_member" id="select-nama-pemesan" class="form-control d-none">
+                                        <select name="nama_member" id="select-nama-pemesan" class="form-control select2 d-none">
                                             <option value="" disabled selected>Pilih Member</option>
                                             <?php while ($member = mysqli_fetch_assoc($query_member)): ?>
-                                                <option value="<?= $member['nama'] ?>" data-member="<?= base64_encode(json_encode($member)) ?>"><?= $member['nama'] ?></option>
+                                                <option value="<?= $member['nama'] ?>" data-member="<?= base64_encode(json_encode($member)) ?>"><?= $member['id_member'] . ' - ' . $member['nama'] ?></option>
                                             <?php endwhile; ?>
                                         </select>
                                         <input type="hidden" name="id_member" id="id-member-pemesan">
@@ -68,7 +68,7 @@ $query_member = mysqli_query($koneksi, "SELECT id_member, nama, telp, alamat  FR
                                         <label for="telp-pemesan">Telp : </label>
                                     </div>
                                     <div class="col-10">
-                                        <input type="text" name="telp" id="telp-pemesan" class="form-control" pattern="^[08][0-9]{11,15}" title="Masukan Nomor Telpon yang valid, seperti 085774237xxx. Telp hanya bisa berisi angka" placeholder="Telp Pemesan" required>
+                                        <input type="number" name="telp" id="telp-pemesan" class="form-control" pattern="^[08][0-9]{10,15}" title="Masukan Nomor Telpon yang valid, seperti 085774237xxx. Telp hanya bisa berisi angka" placeholder="Telp Pemesan" required>
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +156,7 @@ $query_member = mysqli_query($koneksi, "SELECT id_member, nama, telp, alamat  FR
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text">Rp. </span></div>
-                                    <input type="text" name="tunai" id="tunai" class="form-control" placeholder="Masukan Nominal Pembayaran" pattern="^[1-9]([0-9].){0,}" title="Masukan Nominal!" required>
+                                    <input type="number" name="tunai" id="tunai" class="form-control" placeholder="Masukan Nominal Pembayaran" pattern="^[1-9]([0-9].){0,}" title="Masukan Nominal!" required>
                                 </div>
                             </div>
                         </div>
@@ -173,7 +173,7 @@ $query_member = mysqli_query($koneksi, "SELECT id_member, nama, telp, alamat  FR
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="struk-modal-title">Struk Pembayaran</h5>
+                <h3 class="modal-title" id="struk-modal-title">Struk Pembayaran</h3>
             </div>
             <div class="modal-body struk-content">
                 

@@ -4,6 +4,7 @@ $(document).ready(function() {
     let check = true;
 
     $('.data-table').DataTable();
+    $('.select2').select2();
 
     $('.custom-file-input').change(function() {
         let filename = $(this)[0].files[0].name;
@@ -26,16 +27,17 @@ $(document).ready(function() {
         $('#edit-potongan-diskon').val(dataDiskon.potongan);
     });
 
+    $('.select2').addClass('d-none');
     $('.is-member').change(function() {
         let val = $(this).val();
         if (val == 'true') {
             $('#nama-pemesan').addClass('d-none').removeAttr('required');
-            $('#select-nama-pemesan').removeClass('d-none');
+            $('.select2').removeClass('d-none');
             $('#telp-pemesan').attr('readonly', 'readonly');
             $('#alamat-pemesan').attr('readonly', 'readonly');
         } else {
             $('#nama-pemesan').removeClass('d-none').attr('required', 'required');
-            $('#select-nama-pemesan').addClass('d-none');
+            $('.select2').addClass('d-none');
             $('#telp-pemesan').removeAttr('readonly');
             $('#telp-pemesan').val('');
             $('#alamat-pemesan').removeAttr('readonly');
@@ -62,7 +64,9 @@ $(document).ready(function() {
         if (target.find('#product-'+dataProduct.id_produk).length == 0) {
             let templateList = `<tr id="product-${dataProduct.id_produk}">
                                         <td class="p-1">
-                                            ${dataProduct.nama}
+                                            <span class="font-weight-bold">${dataProduct.nama}</span> <br>
+                                            <span>@ ${textToRupiah(dataProduct.harga)}</span>
+
                                             <input type="hidden" name="produk[]" value="${dataProduct.id_produk}">
                                             <input type="hidden" name="nama_produk[]" value="${dataProduct.nama}">
                                             <input type="hidden" name="harga[]" value="${dataProduct.harga}" class="harga-produk">
@@ -211,6 +215,13 @@ $(document).ready(function() {
             check = false;
         }
 
+        if ($('#tunai').val() < total) {
+            alert('Pastikan nominal pembayaran! \r\nPastikan sama dengan atau lebih dari jumlah total');
+            check = false;
+        } else {
+            check = true;
+        }
+
         if (check) {
             let formData = $(this).serializeArray();
             $.ajax({
@@ -229,14 +240,17 @@ $(document).ready(function() {
     $('#btn-print-struk').click(function() {
         let url = $(this).attr('href');
         let kode = $('#kode-transaksi').text();
+        unsave = false;
+        
         window.open(url + kode, '_blank');
         setTimeout(() => {
             window.open('index.php?page=pesanan', '_self');
-        }, 100);
+        }, 10);
     });
 
     $('.btn-detail-transaksi').click(function() {
         let kdt = $(this).attr('data-kt');
+        console.log(kdt);
         $.ajax({
             url: 'detail_transaksi.php?k=' + kdt,
             method: 'GET',
@@ -244,9 +258,36 @@ $(document).ready(function() {
                 console.log(err)
             },
             success: function(res) {
-                console.log(res);
                 $('.detail-content').html(res);
             }
         })
-    })
+    });
+
+    $('.btn-delete').click(function() {
+        let destionation = $(this).attr('href');
+        console.log(destionation);
+        
+        swal({
+            title: 'Yakin Hapus?',
+			text: "Data yang dihapus akan hilang permanen!",
+            icon: 'warning',
+            buttons:{
+                confirm: {
+                    text : 'Ya Hapus!',
+                    className : 'btn btn-danger'
+                },
+                cancel: {
+                    visible: true,
+                    className: 'btn btn-primary'
+                }
+            }
+        }).then((isDelete) => {
+            if (isDelete) {
+                window.location.href = destionation;
+            } else {
+                swal.close();
+            }
+        });
+        return false;
+    });
 });

@@ -36,7 +36,7 @@ $data_member = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM member W
                 </div>
                 <div class="form-group">
                     <label for="telp">Telp :</label>
-                    <input type="text" name="telp" id="telp" class="form-control" autocomplete="tel" value="<?= $data_member['telp'] ?>" pattern="^[08][0-9]{11,15}" title="Masukan Nomor Telpon yang valid, seperti 085774237xxx. Telp hanya bisa berisi angka" placeholder="Masukan Telp Member" required>
+                    <input type="number" name="telp" id="telp" class="form-control" autocomplete="tel" value="<?= $data_member['telp'] ?>" pattern="^[08][0-9]{10,15}" title="Masukan Nomor Telpon yang valid, seperti 085774237xxx. Telp hanya bisa berisi angka" placeholder="Masukan Telp Member" required>
                 </div>
                 <div class="form-group">
                     <label for="alamat">Alamat :</label>

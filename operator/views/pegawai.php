@@ -46,8 +46,8 @@ $no = 1;
                                     <td><?= $row['telp'] ?></td>
                                     <td><?= $row['email'] ?></td>
                                     <td>
-                                        <a href="index.php?page=edit_pegawai&id_pegawai=<?= $row['id_admin'] ?>" class="btn btn-xs btn-info mt-1 mb-1"><i class="fa fa-edit"></i></a>
-                                        <a href="sistem/hapus_pegawai.php?id_pegawai=<?= $row['id_admin'] ?>" class="btn btn-xs btn-danger mt-1 mb-1"><i class="fa fa-trash"></i></a>
+                                        <a href="index.php?page=edit_pegawai&id_pegawai=<?= $row['id_admin'] ?>" class="btn btn-sm btn-info mt-1 mb-1"><i class="fa fa-edit"></i> Edit</a>
+                                        <a href="sistem/hapus_pegawai.php?id_pegawai=<?= $row['id_admin'] ?>" class="btn btn-sm btn-danger btn-delete mt-1 mb-1"><i class="fa fa-trash"></i> Hapus</a>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>

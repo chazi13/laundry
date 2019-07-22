@@ -48,8 +48,8 @@ $no = 1;
                                     <td><?= $row['alamat'] ?></td>
                                     <td><?= date('d-M-Y', strtotime($row['created_at'])) ?></td>
                                     <td>
-                                        <a href="index.php?page=edit_member&id_member=<?= $row['id_member'] ?>" class="btn btn-xs btn-info mt-1 mb-1"><i class="fa fa-edit"></i></a>
-                                        <a href="sistem/hapus_member.php?id_member=<?= $row['id_member'] ?>" class="btn btn-xs btn-danger mt-1 mb-1"><i class="fa fa-trash"></i></a>
+                                        <a href="index.php?page=edit_member&id_member=<?= $row['id_member'] ?>" class="btn btn-sm btn-info mt-1 mb-1"><i class="fa fa-edit"></i> Edit</a>
+                                        <a href="sistem/hapus_member.php?id_member=<?= $row['id_member'] ?>" class="btn btn-sm btn-danger btn-delete mt-1 mb-1"><i class="fa fa-trash"></i> Hapus</a>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>

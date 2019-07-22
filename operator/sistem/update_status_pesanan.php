@@ -25,6 +25,7 @@ switch ($status) {
 
 $query = mysqli_query($koneksi, "UPDATE transaksi SET status = '$status' WHERE kode_transaksi = '$kode_transaksi'");
 if ($query) {
+    mysqli_query($koneksi, "INSERT INTO log_transaksi (pegawai, status, kode_transaksi) VALUES ('$_SESSION[nama]', '$status', '$kode_transaksi')");
     $_SESSION['pesan'] = [
         'status' => 'success',
         'msg' => 'Staus Pesanan Diupdate Menjadi ' . $new_status

@@ -15,7 +15,7 @@
     <div class="container-fluid mt-5">
         <div class="row mt-2">
             <div class="col-12 login-logo text-center mb-3">
-                <img src="../assets/img/logo.png" alt="Logo" class="w-75">
+                <img src="../assets/img/mukhlida-laundry-login.png" alt="Logo" class="w-75">
             </div>
             <div class="col-sm-12 col-md-8 col-lg-4 mx-auto">
                 <div class="card shadow">

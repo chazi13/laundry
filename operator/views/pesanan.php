@@ -55,6 +55,8 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE status < '4' ORDE
                                     <?php if ($row['status'] == '2') echo "<span class=\"badge badge-primary\">Selesai Dikerjakan</span>" ?>
                                     <?php if ($row['status'] == '3') echo "<span class=\"badge badge-secondary\">Sedang Diantarkan</span>" ?>
                                     <?php if ($row['status'] == '4') echo "<span class=\"badge badge-success\">Selesai</span>" ?>
+                                    <br>
+                                    <span class="text-muted"><?= date('d-F-Y', strtotime($row['update_at'])) ?></span>
                                 </td>
                                 <td>
                                     <?php if ($row['status'] == '0'): ?>
@@ -82,7 +84,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE status < '4' ORDE
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detail-transaksi-title">Detail Transaksi</h5>
+                <h3 class="modal-title" id="detail-transaksi-title">Detail Transaksi</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -92,10 +94,10 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE status < '4' ORDE
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <!-- <a href="cetak_struk.php?k=" id="btn-print-struk" class="btn btn-primary" target="_blank" onclick="return false">
+                <a href="cetak_struk.php?k=" id="btn-print-struk" class="btn btn-primary" target="_blank" onclick="return false">
                     <i class="fa fa-print"></i>
                     <span>Print</span>
-                </a> -->
+                </a>
             </div>
         </div>
     </div>

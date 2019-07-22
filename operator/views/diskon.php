@@ -51,7 +51,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM diskon");
         <div class="modal-content">
             <form action="sistem/update_diskon.php" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="edit-diskon-label">Edit Diskon</h5>
+                    <h3 class="modal-title" id="edit-diskon-label">Edit Diskon</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>

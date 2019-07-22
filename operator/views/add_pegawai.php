@@ -43,7 +43,7 @@ $full_id = $prefix . $new_id;
                 </div>
                 <div class="form-group">
                     <label for="telp">Telp :</label>
-                    <input type="text" name="telp" id="telp" class="form-control" autocomplete="tel" pattern="^[08][0-9]{11,15}" title="Masukan Nomor Telpon yang valid, seperti 085774237xxx. Telp hanya bisa berisi angka" placeholder="Masukan Telp Pegawai" required>
+                    <input type="number" name="telp" id="telp" class="form-control" autocomplete="tel" pattern="^[08][0-9]{10,15}" title="Masukan Nomor Telpon yang valid, seperti 085774237xxx. Telp hanya bisa berisi angka" placeholder="Masukan Telp Pegawai" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password :</label>

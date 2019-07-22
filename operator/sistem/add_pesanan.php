@@ -1,22 +1,6 @@
 <?php
 include_once '../../sistem/koneksi.php';
 
-function randomUniqCode()
-{
-    $unicode = '';
-    $alpha = range('A', 'Z');
-    $num = range('0', '9');
-
-    for ($i=0; $i < 6; $i++) { 
-        if ($i < 3) {
-            $unicode .= $alpha[random_int(0, count($alpha)-1)];
-        } else {
-            $unicode .= $num[random_int(0, count($num)-1)];
-        }
-    }
-
-    return $unicode;
-}
 // data transaksi
 $is_member = $_POST['is_member'];
 $nama_pemesan = ($is_member == 'true') ? $_POST['nama_member'] : $_POST['input_nama_pemesan'];
@@ -28,9 +12,10 @@ $diskon = 0;
 $total = $_POST['total'];
 $tunai = $_POST['tunai'];
 
-$prefix_code = 'TRX-';
-$unicode = randomUniqCode();
-$kode_transaksi = $prefix_code . $unicode;
+$last_id = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUBSTR(kode_transaksi, 5, 5) AS id FROM transaksi ORDER BY kode_transaksi DESC LIMIT 0,1"));
+$prefix_code = 'TRS-';
+$new_id = sprintf('%05d', $last_id['id'] + 1);
+$kode_transaksi = $prefix_code . $new_id;
 
 // data produk detail transaksi
 $produk = $_POST['produk'];
@@ -56,6 +41,8 @@ if ($is_member == 'true') {
 $sql_transaksi = "INSERT INTO transaksi (kode_transaksi, pemesan, telp, alamat, logistik, diskon, total, tunai, id_member) VALUES ('$kode_transaksi', '$nama_pemesan', '$telp', '$alamat', '$logistik', '$diskon', '$total', '$tunai', '$id_member')";
 $query_transaksi = mysqli_query($koneksi, $sql_transaksi);
 if ($sql_transaksi) {
+    $sql_log = "INSERT INTO log_transaksi (pegawai, kode_transaksi) VALUES ('$_SESSION[nama]', '$kode_transaksi')";
+    $query_log = mysqli_query($koneksi, $sql_log);
     for ($i=0; $i < count($produk); $i++) { 
         $sql_detail = "INSERT INTO detail_transaksi (nama_produk, qty, harga, id_produk, kode_transaksi) VALUES ('$nama_produk[$i]', '$qty[$i]', '$harga[$i]', '$produk[$i]', '$kode_transaksi')";
         $query_detail = mysqli_query($koneksi, $sql_detail);

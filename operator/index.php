@@ -23,6 +23,9 @@
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/atlantis.min.css">
 	<link rel="stylesheet" href="../assets/css/fonts.min.css">
+
+	<!-- CSS Plugins -->
+	<link rel="stylesheet" href="../assets/js/plugin/select2/css/select2.min.css">
 	
 	<!-- Custom -->
 	<link rel="stylesheet" href="../assets/css/style.css">
@@ -33,8 +36,8 @@
 			<!-- Logo Header -->
 			<div class="logo-header" data-background-color="blue">
 				
-				<a href="index.html" class="logo text-white text-uppercase">
-					MUKHLIDA LAUNDRY
+				<a href="index.php" class="logo text-white text-uppercase">
+					<img src="../assets/img/mukhlida-laundry.png" alt="Logo Image" style="width: 90%">
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">
@@ -153,7 +156,7 @@
 						</li>
 						<li class="nav-item <?= @$l_active ?>">
 							<a href="index.php?page=laporan">
-								<i class="fas fa-table"></i>
+								<i class="fas fa-file-contract"></i>
 								<p>Laporan</p>
 							</a>
 						</li>
@@ -196,6 +199,12 @@
 	<!-- Chart Js -->
 	<script src="../assets/js/plugin/chart.js/chart.min.js"></script>
 
+	<!-- SweetAlert -->
+	<script src="../assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+	<!-- Select2 -->
+	<script src="../assets/js/plugin/select2/js/select2.full.min.js"></script>
+
 	<!-- Atlantis JS -->
 	<script src="../assets/js/atlantis.min.js"></script>
 
@@ -234,7 +243,8 @@
 			let ctx = document.getElementById('chart').getContext('2d');
 			let myLineChart = new Chart(ctx, {
 				type: 'line',
-				data: data
+				data: data,
+				options: options
 			});
 		}
 	</script>
