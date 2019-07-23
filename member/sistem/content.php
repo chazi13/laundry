@@ -34,3 +34,4 @@ switch ($get_page) {
         break;
 }
 
+$info_toko = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM info_toko"));

@@ -65,7 +65,7 @@ switch ($get_page) {
         break;
 
     case 'laporan':
-        $title = 'Laporan';
+        $title = 'Laporan Transaksi';
         $page = 'laporan.php';
         $l_active = 'active';
         break;
@@ -87,3 +87,5 @@ switch ($get_page) {
         $d_active = 'active';
         break;
 }
+
+$info_toko = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM info_toko"));
