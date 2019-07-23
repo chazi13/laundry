@@ -185,7 +185,7 @@ $info_toko = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM info_toko"
     <div class="container">
       <div class="row align-items-center">
         <div class="col-md-4">
-          <span class="copyright">Copyright &copy; Your Website 2019</span>
+          <span class="copyright">Copyright &copy; <?= $info_toko['nama_toko'] ?> 2019</span>
         </div>
         <div class="col-md-4">
           
