@@ -81,7 +81,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM produk");
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp.</span>
                             </div>
-                            <input type="text" name="harga" id="harga" class="form-control" aria-label="Harga" placeholder="Ex. 10.0000" pattern="(^[1-9])+[0-9]{0,}" required>
+                            <input type="number" name="harga" id="harga" class="form-control" aria-label="Harga" placeholder="Ex. 10.0000" pattern="(^[1-9])+[0-9]{0,}" required>
                             <div class="input-group-append">
                                 <span class="input-group-text">.00</span>
                             </div>
@@ -134,7 +134,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM produk");
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp.</span>
                             </div>
-                            <input type="text" name="harga" id="edit-harga-produk" class="form-control" aria-label="Harga" placeholder="Ex. 10.0000" pattern="(^[1-9])+[0-9]{0,}" required>
+                            <input type="number" name="harga" id="edit-harga-produk" class="form-control" aria-label="Harga" placeholder="Ex. 10.0000" pattern="(^[1-9])+[0-9]{0,}" required>
                             <div class="input-group-append">
                                 <span class="input-group-text">.00</span>
                             </div>
