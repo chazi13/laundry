@@ -1,8 +1,13 @@
 <?php
 $b = @$_GET['bulan'] ? $_GET['bulan'] : date('m');
 $t = @$_GET['tahun'] ? $_GET['tahun'] : date('Y');
-$query = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE status >= '4' AND DATE_FORMAT(tgl_transaksi, '%Y-%m-%d') BETWEEN '$t-$b-01' AND '$t-$b-32'  ORDER BY status ASC, tgl_transaksi ASC");
+if ($b !== 'semua') {
+    $query = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE status >= '4' AND DATE_FORMAT(tgl_transaksi, '%Y-%m-%d') BETWEEN '$t-$b-01' AND '$t-$b-32'  ORDER BY status ASC, tgl_transaksi ASC");
+} else {
+    $query = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE status >= '4' AND DATE_FORMAT(tgl_transaksi, '%Y') = '$t'  ORDER BY status ASC, tgl_transaksi ASC");
+}
 $bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+$total = 0;
 ?>
 
 <div class="page-inner">
@@ -16,7 +21,8 @@ $bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agust
                 <div class="row">
                     <div class="col p-1">
                         <select name="bulan" id="" class="form-control">
-                            <option value="">Bulan</option>
+                            <option value="" disabled>Bulan</option>
+                            <option value="semua">Semua</option>
                             <?php for ($i=1; $i <= 12; $i++): $sb = (strlen($i) < 2) ? '0'.$i : $i; ?>
                                 <option value="<?= $sb; ?>" <?= ($sb == $b) ? 'selected' : '' ?>><?= $bulan[$i-1] ?></option>
                             <?php endfor; ?>
@@ -24,7 +30,7 @@ $bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agust
                     </div>
                     <div class="col p-1">
                         <select name="tahun" id="" class="form-control">
-                            <option value="">Tahun</option>
+                            <option value="" disabled>Tahun</option>
                             <?php for ($st=date('Y'); $st > date(Y)-5; $st--): ?>
                                 <option value="<?= $st ?>" <?= ($st == $t) ? 'selected' : '' ?>><?= $st ?></option>
                             <?php endfor; ?>
@@ -49,53 +55,58 @@ $bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agust
 
     <div class="main-content">
         <div class="card">
+            <div class="card-header with-border">
+                <h4 class="d-inline float-left card-title"><?= (is_numeric($b)) ? 'Bulan ' . $bulan[$b-1] . ',' : 'Tahun' ?> <?= $t ?></h4>
+                <div class="d-inline float-right ml-auto text-right">
+                    <a href="cetak_laporan.php?bulan=<?= $b ?>&tahun=<?= $t ?>" class="btn btn-outline-primary py-1" target="_blank">
+                        <i class="fa fa-print"></i>
+                        <span>Print</span>
+                    </a>
+                </div>
+            </div>
             <div class="card-body px-2">
                 <table class="table table-striped table-bordered data-table">
                     <thead>
-                        <th>Kode Transaksi</th>
+                        <th width="13%">Kode Transaksi</th>
                         <th>Pemesan</th>
-                        <th width="20%">Alamat</th>
-                        <th>Pengiriman</th>
-                        <!-- <th>Total</th> -->
-                        <th>Status</th>
+                        <th width="16%">Tanggal</th>
+                        <th width="30%">Alamat</th>
+                        <th>Total</th>
+                        <!-- <th>Status</th> -->
                         <th>Aksi</th>
                     </thead>
                     <tbody>
-                        <?php while ($row = mysqli_fetch_assoc($query)): ?>
+                        <?php while ($row = mysqli_fetch_assoc($query)): $total += $row['total'] ?>
                             <tr>
                                 <td><?= $row['kode_transaksi'] ?></td>
                                 <td>
                                     <span><?= $row['pemesan'] ?></span> <br>
                                     <span class="text-muted">Telp. <?= $row['telp'] ?></span>
                                 </td>
-                                <td><?= $row['alamat'] ?></td>
                                 <td>
-                                    <?= $row['logistik'] ?>
+                                    <?= date('d M Y', strtotime($row['tgl_transaksi'])) ?>
                                 </td>
-                                <!-- <td>Rp. <?= number_format($row['total'], '0', ',', '.') ?></td> -->
-                                <td>
+                                <td><?= $row['alamat'] ?></td>
+                                <td>Rp. <?= number_format($row['total'], '0', ',', '.') ?></td>
+                                <!-- <td>
                                     <?php if ($row['status'] == '0') echo "<span class=\"badge badge-warning\">Menunggu</span>" ?>
                                     <?php if ($row['status'] == '1') echo "<span class=\"badge badge-info\">Dikerjakan</span>" ?>
                                     <?php if ($row['status'] == '2') echo "<span class=\"badge badge-primary\">Selesai Dikerjakan</span>" ?>
                                     <?php if ($row['status'] == '3') echo "<span class=\"badge badge-secondary\">Sedang Diantarkan</span>" ?>
                                     <?php if ($row['status'] == '4') echo "<span class=\"badge badge-success\">Selesai</span>" ?>
-                                </td>
+                                </td> -->
                                 <td>
-                                    <?php if ($row['status'] == '0'): ?>
-                                        <a href="sistem/update_status_pesanan.php?s=1&k=<?= base64_encode($row['kode_transaksi']) ?>" class="btn btn-info btn-xs py-1" data-toggle="tooltip" data-placement="top" title="Tandai Dikerjakan"><i class="fa fa-clipboard-list fa-2x"></i></a>
-                                    <?php elseif ($row['status'] == '1'): ?>
-                                        <a href="sistem/update_status_pesanan.php?s=2&k=<?= base64_encode($row['kode_transaksi']) ?>" class="btn btn-primary btn-xs py-1" data-toggle="tooltip" data-placement="top" title="Tandai Selesai Dikerjakan"><i class="fa fa-tasks fa-2x"></i></a>
-                                    <?php elseif ($row['status'] == '2' && $row['logistik'] == 'Diantar'): ?>
-                                        <a href="sistem/update_status_pesanan.php?s=3&k=<?= base64_encode($row['kode_transaksi']) ?>" class="btn btn-secondary btn-xs py-1" data-toggle="tooltip" data-placement="top" title="Tandai Dikirim"><i class="fa fa-shipping-fast fa-2x"></i></a>
-                                    <?php elseif ($row['status'] == '3' || ($row['status'] == '2' && $row['logistik'] == 'Ambil Sendiri')): ?>
-                                        <a href="sistem/update_status_pesanan.php?s=4&k=<?= base64_encode($row['kode_transaksi']) ?>" class="btn btn-success btn-xs py-1" data-toggle="tooltip" data-placement="top" title="Tandai Selesai"><i class="fa fa-check fa-2x"></i></a>
-                                    <?php endif; ?>
-
                                     <a href="#detail-transaksi" class="btn btn-dark btn-xs btn-detail-transaksi py-1" data-toggle="modal" data-target="#detail-transaksi" data-kt="<?= base64_encode($row['kode_transaksi']) ?>"><i class="fa fa-file-invoice fa-2x"  data-toggle="tooltip" data-placement="top" title="Detail Transaksi"></i></a>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
                     </tbody>
+                    <tfoot class="bg-light">
+                        <tr>
+                            <th colspan="4">Jumlah Total</th>
+                            <th colspan="2">Rp. <?= number_format($total, 0, ',', '.') ?></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
