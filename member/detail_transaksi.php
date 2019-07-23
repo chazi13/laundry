@@ -22,7 +22,7 @@ if (mysqli_num_rows($log_transaksi) > 4) {
         ],
         [
             'kategori' => 'Pengiriman',
-            'icon' => 'flaticon-truck',
+            'icon' => 'flaticon-delivery-truck',
             'color' => 'warning'
         ],
         [
@@ -81,7 +81,7 @@ if (mysqli_num_rows($log_transaksi) > 4) {
                                 <?php endif; ?>
                             </dl>
                         
-                        <?php elseif ($route[$i]['kategori'] == 'Dikirim' && $log[$l]['status'] == '3'): ?>
+                        <?php elseif ($route[$i]['kategori'] == 'Pengiriman' && $log[$l]['status'] == '3'): ?>
                             <dl>
                                 <dt><span class="d-block text-muted"><?= date('d-M-Y H:i:s', strtotime($log[$l]['timestamp'])) ?></span></dt>
                                 <dd>Laundry sedang dikirim oleh <span class="text-uppercase"><?= $log[$i]['pegawai'] ?></span></dd>
