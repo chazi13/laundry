@@ -70,6 +70,12 @@ switch ($get_page) {
         $l_active = 'active';
         break;
 
+    case 'jurnal':
+        $title = 'Jurnal';
+        $page = 'jurnal.php';
+        $j_active = 'active';
+        break;
+
     case 'add_pesanan':
         $title = 'Tambah Pesanan';
         $page = 'add_pesanan.php';

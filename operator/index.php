@@ -160,6 +160,12 @@
 								<p>Laporan</p>
 							</a>
 						</li>
+						<li class="nav-item <?= @$j_active ?>">
+							<a href="index.php?page=jurnal">
+								<i class="fas fa-file"></i>
+								<p>Jurnal</p>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</div>

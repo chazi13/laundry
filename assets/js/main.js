@@ -290,4 +290,15 @@ $(document).ready(function() {
         });
         return false;
     });
+
+    $('.btn-edit-jurnal').click(function() {
+        let dataJurnal = $.parseJSON(atob($(this).attr('data-jurnal')));
+        console.log(dataJurnal);
+        $('#form-jurnal').attr('action', 'sistem/edit_jurnal.php');
+        $('#kode_jurnal').val(dataJurnal.kode_jurnal);
+        $('#tanggal').val(dataJurnal.tanggal);
+        $('#keterangan').val(dataJurnal.keterangan);
+        $('#jenis').val(dataJurnal.jenis);
+        $('#nominal').val(dataJurnal.nominal)
+    })
 });

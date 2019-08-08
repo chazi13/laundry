@@ -41,6 +41,17 @@ if ($is_member == 'true') {
 $sql_transaksi = "INSERT INTO transaksi (kode_transaksi, pemesan, telp, alamat, logistik, diskon, total, tunai, id_member) VALUES ('$kode_transaksi', '$nama_pemesan', '$telp', '$alamat', '$logistik', '$diskon', '$total', '$tunai', '$id_member')";
 $query_transaksi = mysqli_query($koneksi, $sql_transaksi);
 if ($sql_transaksi) {
+
+    $last_jurnal_kode = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUBSTR(kode_jurnal, 5, 5) AS id FROM jurnal ORDER BY kode_jurnal DESC"));
+    $prefix_code = 'JNL-';
+    $new_kode = sprintf('%05d', $last_jurnal_kode['id'] + 1);
+    $kode_jurnal = $prefix_code . $new_kode;
+    $tanggal = date('Y-m-d');
+    $keterang_jurnal = 'Transaksi Pemesanan';
+    $jenis = 'debet';
+    $sql_jurnal = "INSERT INTO jurnal (kode_jurnal, tanggal, keterangan, jenis, nominal) VALUES ('$kode_jurnal', '$tanggal', '$keterang_jurnal', '$jenis', '$total')";
+    mysqli_query($koneksi, $sql_jurnal);
+
     $sql_log = "INSERT INTO log_transaksi (pegawai, kode_transaksi) VALUES ('$_SESSION[nama]', '$kode_transaksi')";
     $query_log = mysqli_query($koneksi, $sql_log);
     for ($i=0; $i < count($produk); $i++) { 
