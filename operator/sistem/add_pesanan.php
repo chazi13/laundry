@@ -31,9 +31,11 @@ if ($is_member == 'true') {
     } elseif (mysqli_num_rows($check_diskon) == 1) {
         $ketentuan_diskon = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM diskon"));
         $counter = mysqli_fetch_assoc($check_diskon);
-        if ($counter['counter'] == $ketentuan_diskon['pemesanan']) {
+        if ($counter['counter'] >= $ketentuan_diskon['pemesanan']) {
             $diskon = $ketentuan_diskon['potongan'];
-            $update_counter = mysqli_query($koneksi, "UPDATE diskon_counter SET counter = '0' WHERE id_member = '$id_member'");
+            $set_discount_counter = $counter['counter'] - $ketentuan_diskon['pemesanan'];
+            $total -= $total * ($ketentuan_diskon['potongan'] / 100);
+            $update_counter = mysqli_query($koneksi, "UPDATE diskon_counter SET counter = '$set_discount_counter' WHERE id_member = '$id_member'");
         }
     }
 }
@@ -118,12 +120,12 @@ $info_toko = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM info_toko"
             <td class="p-1 text-right font-weight-bold">Rp. <?= number_format($totalsub, 0, ',', '.') ?></td>
         </tr>
         <tr>
-            <td class="p-1 text-uppercase">Diskon</td>
-            <td class="p-1 text-right"><?= ($diskon > 0) ? $diskon . '%' : 0 ?></td>
-        </tr>
-        <tr>
             <td class="p-1 text-uppercase">Pengiriman</td>
             <td class="p-1 text-right"><?= (@$_POST['antar'] == 'on') ? 'Rp. 9.000' : 0 ?></td>
+        </tr>
+        <tr>
+            <td class="p-1 text-uppercase">Diskon</td>
+            <td class="p-1 text-right"><?= ($diskon > 0) ? $diskon . '%' : 0 ?></td>
         </tr>
     </table>
     <hr>
