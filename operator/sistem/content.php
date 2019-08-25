@@ -34,6 +34,18 @@ switch ($get_page) {
         $m_active = 'active';
         break;
 
+    case 'klasifikasi':
+        $title = 'Klasifikasi';
+        $page = 'klasifikasi.php';
+        $klasifikasi_active = 'active';
+        break;
+
+    case 'coa':
+        $title = 'COA';
+        $page = 'coa.php';
+        $coa_active = 'active';
+        break;
+
     case 'add_member':
         $title = 'Tambah Data Member';
         $page = 'add_member.php';

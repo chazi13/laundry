@@ -250,7 +250,6 @@ $(document).ready(function() {
 
     $('.btn-detail-transaksi').click(function() {
         let kdt = $(this).attr('data-kt');
-        console.log(kdt);
         $.ajax({
             url: 'detail_transaksi.php?k=' + kdt,
             method: 'GET',
@@ -291,14 +290,26 @@ $(document).ready(function() {
         return false;
     });
 
-    $('.btn-edit-jurnal').click(function() {
-        let dataJurnal = $.parseJSON(atob($(this).attr('data-jurnal')));
-        console.log(dataJurnal);
-        $('#form-jurnal').attr('action', 'sistem/edit_jurnal.php');
-        $('#kode_jurnal').val(dataJurnal.kode_jurnal);
-        $('#tanggal').val(dataJurnal.tanggal);
-        $('#keterangan').val(dataJurnal.keterangan);
-        $('#jenis').val(dataJurnal.jenis);
-        $('#nominal').val(dataJurnal.nominal)
-    })
+    $('.btn-edit-klasifikasi').click(function() {
+        let dataKlasifikasi = $.parseJSON(atob($(this).attr('data-klasifikasi')));
+        $('#id_klasifikasi').val(dataKlasifikasi.id_klasifikasi);
+        $('#edit_nama').val(dataKlasifikasi.nama_klasifikasi);
+    });
+
+    $('.btn-edit-coa').click(function() {
+        let dataCOA = $.parseJSON(atob($(this).attr('data-coa')));
+        $('#edit-no-coa').val(dataCOA.no_coa);
+        $('#edit-nama').val(dataCOA.nama_coa);
+        if (dataCOA.gol === 'D') {
+            $('#edit-debet').attr('checked', 'checked');
+        } else {
+            $('#edit-kredit').attr('checked', 'checked');
+        }
+        $('#edit-klasifikasi').val(dataCOA.klasifikasi);
+    });
+
+    $('#select-coa').change(function() {
+        let dataSaldo = $(this).find('option:selected').attr('data-saldo');
+        $('#saldo').val(dataSaldo);
+    });
 });

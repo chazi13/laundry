@@ -1,7 +1,7 @@
 <?php
 $b = @$_GET['bulan'] ? $_GET['bulan'] : date('m');
 $t = @$_GET['tahun'] ? $_GET['tahun'] : date('Y');
-$query = mysqli_query($koneksi, "SELECT * FROM jurnal WHERE DATE_FORMAT(tanggal, '%Y-%m-%d') BETWEEN '$t-$b-01' AND '$t-$b-32'  ORDER BY tanggal ASC");
+$query = mysqli_query($koneksi, "SELECT * FROM jurnal JOIN coa ON jurnal.coa_id = coa.no_coa WHERE DATE_FORMAT(tanggal, '%Y-%m-%d') BETWEEN '$t-$b-01' AND '$t-$b-32'  ORDER BY tanggal ASC");
 $bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
 $last_jurnal_kode = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUBSTR(kode_jurnal, 5, 5) AS id FROM jurnal ORDER BY kode_jurnal DESC"));
@@ -9,8 +9,12 @@ $prefix_code = 'JNL-';
 $new_kode = sprintf('%05d', $last_jurnal_kode['id'] + 1);
 $kode_jurnal = $prefix_code . $new_kode;
 
-$saldo_debet = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUM(nominal) AS debet FROM jurnal WHERE DATE_FORMAT(tanggal, '%Y-%m-%d') < '$t-$b-01' AND jenis = 'debet'"));
-$saldo_kredit = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUM(nominal) AS kredit FROM jurnal WHERE DATE_FORMAT(tanggal, '%Y-%m-%d') < '$t-$b-01' AND jenis = 'kredit'"));
+$query_coa = mysqli_query($koneksi, "SELECT * FROM coa");
+
+// $total_pemasukan = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUM(total) AS total FROM transaksi WHERE DATE_FORMAT(tgl_transaksi, '%Y-%m-%d') BETWEEN '$t-$b-01' AND '$t-$b-32'"));
+
+$saldo_debet = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUM(jurnal.saldo) AS debet FROM jurnal JOIN coa ON jurnal.coa_id = coa.no_coa WHERE DATE_FORMAT(tanggal, '%Y-%m-%d') < '$t-$b-01' AND coa.gol = 'D'"));
+$saldo_kredit = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUM(jurnal.saldo) AS kredit FROM jurnal JOIN coa ON jurnal.coa_id = coa.no_coa WHERE DATE_FORMAT(tanggal, '%Y-%m-%d') < '$t-$b-01' AND coa.gol = 'C'"));
 $saldo = $saldo_debet['debet'] - $saldo_kredit['kredit'];
 ?>
 
@@ -26,7 +30,7 @@ $saldo = $saldo_debet['debet'] - $saldo_kredit['kredit'];
 
     <div class="main-content">
         <div class="row">
-            <div class="col-6">
+            <div class="col-lg-6 col-md-12">
                 <div class="card">
                     <form id="form-jurnal" action="sistem/add_jurnal.php" method="post">
                         <div class="card-header">
@@ -46,6 +50,17 @@ $saldo = $saldo_debet['debet'] - $saldo_kredit['kredit'];
                                 </div>
                             </div>
                             <div class="form-row form-group">
+                                <label for="coa" class="col-3">Jenis COA</label>
+                                <div class="col-9">
+                                    <select name="coa_id" id="select-coa" class="form-control">
+                                        <option value="" disabled selected>Pilih COA</option>
+                                        <?php while($coa_row = mysqli_fetch_assoc($query_coa)): ?>
+                                            <option value="<?= $coa_row['no_coa'] ?>" data-saldo="<?= $coa_row['saldo'] ?>"><?= $coa_row['nama_coa'] ?></option>
+                                        <?php endwhile; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- <div class="form-row form-group">
                                 <label for="keterangan" class="col-3">Keterangan</label>
                                 <div class="col-9">
                                     <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Masukan Keterangan" required>
@@ -59,11 +74,11 @@ $saldo = $saldo_debet['debet'] - $saldo_kredit['kredit'];
                                         <option value="kredit">Kredit</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-row form-group">
-                                <label for="nominal" class="col-3">Nominal</label>
+                                <label for="saldo" class="col-3">Saldo</label>
                                 <div class="col-9">
-                                    <input type="number" name="nominal" id="nominal" class="form-control" placeholder="Masukan Nominal">
+                                    <input type="number" name="saldo" id="saldo" class="form-control" placeholder="Masukan Saldo">
                                 </div>
                             </div>
                         </div>
@@ -84,10 +99,10 @@ $saldo = $saldo_debet['debet'] - $saldo_kredit['kredit'];
         <div class="card">
             <div class="card-header border-bottom">
                 <div class="row mb-2">
-                    <div class="col-8">
+                    <div class="col-lg-6 col-md-12">
                         <h4 class="card-title"><?= $title ?></h2>
                     </div>
-                    <div class="col-4 text-right ml-auto">
+                    <div class="col-lg-6 col-md-12 text-right ml-auto">
                         <form action="index.php" method="get">
                             <input type="hidden" name="page" value="jurnal">
                             <div class="row">
@@ -110,6 +125,11 @@ $saldo = $saldo_debet['debet'] - $saldo_kredit['kredit'];
                                 <div class="col p-1">
                                     <button type="submit" class="btn btn-primary">Tampilkan</button>
                                 </div>
+                                <div class="col p-1">
+                                    <a href="cetak_jurnal.php?&bulan=<?= $b ?>&tahun=<?= $t ?>" target="_blank" class="btn btn-success">
+                                        <i class="fa fa-print"></i> Cetak
+                                    </a>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -121,11 +141,11 @@ $saldo = $saldo_debet['debet'] - $saldo_kredit['kredit'];
                         <thead>
                             <th>Kode Jurnal</th>
                             <th>Tanggal</th>
+                            <th>No. COA</th>
                             <th>Keterangan</th>
                             <th>Debet</th>
                             <th>Kredit</th>
                             <th>Saldo</th>
-                            <th>Aksi</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -136,19 +156,17 @@ $saldo = $saldo_debet['debet'] - $saldo_kredit['kredit'];
                                 <tr>
                                     <td><?= $row['kode_jurnal'] ?></td>
                                     <td><?= date('d M Y', strtotime($row['tanggal'])) ?></td>
-                                    <td><?= $row['keterangan'] ?></td>
-                                    <td>Rp. <?= ($row['jenis'] == 'debet') ? number_format($row['nominal'], 0, ',', '.') : '' ?></td>
-                                    <td>Rp. <?= ($row['jenis'] == 'kredit') ? number_format($row['nominal'], 0, ',', '.') : '' ?></td>
-                                    <td>Rp. <?php $saldo = ($row['jenis'] == 'debet') ? $saldo + $row['nominal'] : $saldo - $row['nominal']; echo number_format($saldo, 0, ',', '.') ?></td>
-                                    <td>
-                                        <a href="#form-jurnal" class="btn btn-info btn-xs btn-edit-jurnal" data-jurnal="<?= base64_encode(json_encode($row)) ?>"><i class="fa fa-edit"></i></a>
-                                    </td>
+                                    <td><?= $row['no_coa'] ?></td>
+                                    <td><?= $row['nama_coa'] ?></td>
+                                    <td>Rp. <?= ($row['gol'] == 'D') ? number_format($row['saldo'], 0, ',', '.') : '' ?></td>
+                                    <td>Rp. <?= ($row['gol'] == 'K') ? number_format($row['saldo'], 0, ',', '.') : '' ?></td>
+                                    <td>Rp. <?php $saldo = ($row['gol'] == 'D') ? $saldo + $row['saldo'] : $saldo - $row['saldo']; echo number_format($saldo, 0, ',', '.') ?></td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>
                         <tfoot>
-                            <th colspan="5">Total</th>
-                            <th colspan="2">Rp. <?= number_format($saldo, 0, ',', '.') ?></th>
+                            <th colspan="6">Total</th>
+                            <th colspan="1">Rp. <?= number_format($saldo, 0, ',', '.') ?></th>
                         </tfoot>
                     </table>
                 </div>

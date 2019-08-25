@@ -1,25 +1,23 @@
 <?php
 include_once '../../sistem/koneksi.php';
-var_dump($_POST);
+// var_dump($_POST);
 $kode_jurnal = $_POST['kode_jurnal'];
 $tanggal = $_POST['tanggal'];
-$keterangan = $_POST['keterangan'];
-$jenis = $_POST['jenis'];
-$nominal = $_POST['nominal'];
+$coa_id = $_POST['coa_id'];
+$saldo = $_POST['saldo'];
 
-$query = mysqli_query($koneksi, "INSERT INTO jurnal (kode_jurnal, tanggal, keterangan, jenis, nominal) VALUES ('$kode_jurnal', '$tanggal', '$keterangan', '$jenis', '$nominal')");
+$query = mysqli_query($koneksi, "INSERT INTO jurnal (kode_jurnal, tanggal, coa_id, saldo) VALUES ('$kode_jurnal', '$tanggal', '$coa_id', '$saldo')");
 if ($query) {
     $_SESSION['pesan'] = [
         'status' => 'success',
         'msg' => 'Jurnal Berhasil ditambahkan'
     ];
-header('location: ../index.php?page=jurnal');
 } else {
     $_SESSION['pesan'] = [
         'status' => 'error',
         'msg' => 'Jurnal Gagal ditambahkan'
     ];
-header('location: ../index.php?page=jurnal');
 }
+header('location: ../index.php?page=jurnal');
 
 /* End of File: d:\Ampps\www\project\laundry\operator\sistem\add_jurnal.php */

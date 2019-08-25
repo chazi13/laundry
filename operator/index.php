@@ -112,6 +112,29 @@
 								<p>Profil Toko</p>
 							</a>
                         </li>
+						<?php if ($_SESSION['level'] == 'Admin'): ?>
+						<li class="nav-item <?= @$klasifikasi_active . @$coa_active ?> submenu">
+							<a data-toggle="collapse" href="#module-coa">
+								<i class="fas fa-layer-group"></i>
+								<p>COA</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse <?= (@$klasifikasi_active || @$coa_active) ? 'show' : '' ?>" id="module-coa">
+								<ul class="nav nav-collapse">
+									<li class="<?= @$kcoa_active ?>">
+										<a href="index.php?page=klasifikasi">
+											<span class="sub-item">Klasifikasi</span>
+										</a>
+                                    </li>
+                                    <li class="<?= @$coa_active ?>">
+										<a href="index.php?page=coa">
+											<span class="sub-item">COA</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<?php endif; ?>
                         <li class="nav-item <?= @$p_active ?>">
 							<a href="index.php?page=pegawai">
 								<i class="fas fa-user"></i>
