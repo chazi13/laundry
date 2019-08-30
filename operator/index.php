@@ -174,7 +174,7 @@
 						<li class="nav-item <?= @$ps_active ?>">
 							<a href="index.php?page=pesanan">
 								<i class="fas fa-table"></i>
-								<p>Pesanan</p>
+								<p>Transaksi</p>
 							</a>
 						</li>
 						<li class="nav-item <?= @$l_active ?>">

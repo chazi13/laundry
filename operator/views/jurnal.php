@@ -38,7 +38,7 @@ $saldo = $saldo_debet['debet'] - $saldo_kredit['kredit'];
                         </div>
                         <div class="card-body">
                             <div class="form-row form-group">
-                                <label for="kode_jurnal" class="col-3">Kode Jurnal</label>
+                                <label for="kode_jurnal" class="col-3">ID</label>
                                 <div class="col-9">
                                     <input type="text" name="kode_jurnal" value="<?= $kode_jurnal ?>" id="kode_jurnal" readonly class="form-control">
                                 </div>
@@ -139,7 +139,7 @@ $saldo = $saldo_debet['debet'] - $saldo_kredit['kredit'];
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
-                            <th>Kode Jurnal</th>
+                            <th>ID</th>
                             <th>Tanggal</th>
                             <th>No. COA</th>
                             <th>Keterangan</th>
