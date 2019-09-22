@@ -1,5 +1,5 @@
 <?php
-include_once '../../sistem/koneksi.php';
+include_once '../sistem/koneksi.php';
 $b = @$_GET['bulan'] ? $_GET['bulan'] : date('m');
 $t = @$_GET['tahun'] ? $_GET['tahun'] : date('Y');
 $query = mysqli_query($koneksi, "SELECT * FROM jurnal JOIN coa ON jurnal.coa_id = coa.no_coa WHERE DATE_FORMAT(tanggal, '%Y-%m-%d') BETWEEN '$t-$b-01' AND '$t-$b-32'  ORDER BY tanggal ASC");
@@ -14,7 +14,6 @@ $saldo_kredit = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUM(jurnal.sal
 $saldo = $saldo_debet['debet'] - $saldo_kredit['kredit'];
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +22,7 @@ $saldo = $saldo_debet['debet'] - $saldo_kredit['kredit'];
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Junal Laporan Bulan <?= date('M', strtotime($b)) . ', tahun ' . $t ?></title>
 
-    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container pt-5">
