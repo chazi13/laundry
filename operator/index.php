@@ -152,7 +152,7 @@
 						<li class="nav-item <?= @$pk_active . @$pd_active ?> submenu">
 							<a data-toggle="collapse" href="#produk">
 								<i class="fas fa-layer-group"></i>
-								<p>Produk</p>
+								<p>Jenis</p>
 								<span class="caret"></span>
 							</a>
 							<div class="collapse <?= (@$pk_active || @$pd_active) ? 'show' : '' ?>" id="produk">

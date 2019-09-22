@@ -53,13 +53,13 @@ $info_toko = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM info_toko"
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            <a class="nav-link js-scroll-trigger" href="#about">Tentang Kami</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+            <a class="nav-link js-scroll-trigger" href="#services">Layanan</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            <a class="nav-link js-scroll-trigger" href="#contact">Kontak</a>
           </li>
           <li class="nav-item">
             <a class="nav-link btn btn-primary font-weight-bold p-1 text-white" href="member/">Login</a>
@@ -73,9 +73,9 @@ $info_toko = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM info_toko"
   <header class="masthead">
     <div class="container">
       <div class="intro-text">
-        <div class="intro-lead-in">Welcome To Our Studio!</div>
-        <div class="intro-heading text-uppercase">It's Nice To Meet You</div>
-        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
+        <div class="intro-lead-in">Mukhlida Laundry</div>
+        <div class="intro-heading text-uppercase">Solusi Terbaik Untuk Laundry</div>
+        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Layanan Kami</a>
       </div>
     </div>
   </header>
@@ -85,8 +85,7 @@ $info_toko = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM info_toko"
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h2 class="section-heading text-uppercase">About</h2>
-          <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+          <h2 class="section-heading text-uppercase">Tentang Kami</h2>
         </div>
       </div>
       <div class="row">
@@ -102,34 +101,33 @@ $info_toko = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM info_toko"
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h2 class="section-heading text-uppercase">Services</h2>
-          <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+          <h2 class="section-heading text-uppercase">Pesan Layanan Cuci Online</h2>
         </div>
       </div>
       <div class="row text-center">
         <div class="col-md-4">
           <span class="fa-stack fa-4x">
             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+            <i class="fas fa-mobile-alt fa-stack-1x fa-inverse"></i>
           </span>
-          <h4 class="service-heading">E-Commerce</h4>
-          <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+          <h4 class="service-heading">Klik & Mulailah</h4>
+          <p class="text-muted">Klik tombol Cuci Sekarang untuk memulai. Anda akan diarahkan ke halaman daftar layanan untuk memilih item yang ingin dibersihkan.</p>
         </div>
         <div class="col-md-4">
           <span class="fa-stack fa-4x">
             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+            <i class="fas fa-shopping-basket fa-stack-1x fa-inverse"></i>
           </span>
-          <h4 class="service-heading">Responsive Design</h4>
-          <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+          <h4 class="service-heading">Cek & Pesan</h4>
+          <p class="text-muted">Periksa daftar item di keranjang Anda dengan mengklik ikon keranjang. Klik tombol Pesan Sekarang untuk memroses ke halaman pemesanan.</p>
         </div>
         <div class="col-md-4">
           <span class="fa-stack fa-4x">
             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+            <i class="fas fa-credit-card fa-stack-1x fa-inverse"></i>
           </span>
-          <h4 class="service-heading">Web Security</h4>
-          <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+          <h4 class="service-heading">Bayar & Proses</h4>
+          <p class="text-muted">Lengkapi informasi Anda untuk memroses antar-jemput item Anda. Lakukan pembayaran di akhir proses pemesanan setelah mengklik Ajukan Pemesanan.</p>
         </div>
       </div>
     </div>
@@ -140,8 +138,7 @@ $info_toko = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM info_toko"
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h2 class="section-heading text-uppercase">Contact Us</h2>
-          <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+          <h2 class="section-heading text-uppercase">Kontak</h2>
         </div>
       </div>
       <div class="row">
@@ -171,7 +168,7 @@ $info_toko = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM info_toko"
               <div class="clearfix"></div>
               <div class="col-lg-12 text-center">
                 <div id="success"></div>
-                <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Send Message</button>
+                <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Kirim Pesan</button>
               </div>
             </div>
           </form>
