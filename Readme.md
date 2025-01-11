@@ -1,5 +1,5 @@
 ## Aplikasi Kelola Laundry | Mukhlida Laundry
-Aplikasi pengenlolaan dan pemesanan laundry berbasis PHP dan MySQL. Aplikasi ini berfungsi untuk para owner laundry untuk mengatur dan bisnis laundrynya
+Aplikasi pengelolaan dan pemesanan laundry berbasis PHP dan MySQL. Aplikasi ini berfungsi untuk para owner laundry untuk mengatur dan bisnis laundry-nya
 
 ### Fitur - fitur
   * Pengelolaan informasi general toko
